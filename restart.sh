@@ -1,0 +1,8 @@
+#!/bin/bash
+mkdir -p /home/pi/pids/; touch /home/pi/pids/lt_github_hook.pid
+echo "$(date) Killing the processes"
+[ -e /home/pi/pids/lt_github_hook.pid ] && kill $(cat /home/pi/pids/lt_github_hook.pid)
+sleep 3s
+
+echo "$(date) Starting the app"
+/usr/local/bin/lt --subdomain 'github-hook' --port 5000 > /home/pi/lt_stdout.txt 2> /home/pi/lt_stderr.txt & echo $! > /home/pi/pids/lt_github_hook.pid
