@@ -5,4 +5,4 @@ echo "$(date) Killing the processes"
 sleep 3s
 
 echo "$(date) Starting github-hook tunnel"
-/usr/local/bin/lt --subdomain 'github-hook' --port 5000 > /home/pi/lt_stdout.txt 2> /home/pi/lt_stderr.txt & echo $! > /home/pi/pids/lt_github_hook.pid
+/usr/local/bin/lt --subdomain 'github-hook' --port 5000 > /home/pi/lt_github_hook_stdout.txt 2> /home/pi/lt_github_hook_stderr.txt & echo $! > /home/pi/pids/lt_github_hook.pid
