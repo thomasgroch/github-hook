@@ -6,7 +6,7 @@ PID_PATH=$HOME/pids
 
 mkdir -p $PID_PATH; touch "${PID_PATH}/lt_${APP}.pid"
 log() {
-    echo "$(date) $1"
+    echo "[$(date)] $1"
 }
 
 log "Killing ${APP} process"
