@@ -1,11 +1,19 @@
 #!/bin/bash
-echo "$(date) Status check - github-hook:"
-if [[ -e /home/pi/lt_github_hook_stdout.txt && ! $(cat /home/pi/lt_github_hook_stdout.txt| grep 'github-hook') ]]; then
-  echo "$(date) Wrong domain. Service is stopped. Restarting"
-  cd /home/pi/github-hook/ && sh restart.sh
-elif [[ $(ps aux | awk '/[b]in\/lt .*github-hook/ {print $2}') ]]; then
-  echo "$(date) Service is running"
+
+APP=$1
+log "$(date) $APP Status check"
+
+log() {
+    echo "$(date) $1"
+}
+restart() {
+    cd $HOME/$APP/ && sh restart.sh
+}
+
+if [[ $(ps aux | grep '$APP') ]]; then
+  log "Service is running"
+elif [[ $(cat "${HOME}/lt_${APP}.stdout"| grep '$APP') ]]; then
+  log "Wrong domain. Restarting Service."; restart
 else
-  echo "$(date) Service is stopped. Restarting"
-  cd /home/pi/github-hook/ && sh restart.sh
+  log "Service is stopped. Starting"; restart
 fi
