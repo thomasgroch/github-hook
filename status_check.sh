@@ -6,7 +6,7 @@ PORT=$2
 log() {
     echo "$(date) $1"
 }
-log "$(date) $APP Status check"
+log "$(date) Status check $APP"
 
 if [[ $(ps aux | grep '$APP') ]]; then
   log "Service is running"
