@@ -8,8 +8,9 @@ log() {
 }
 
 log "Status check ${APP} on port ${PORT}"
+touch "${HOME}/lt_${APP}.stdout"
 
-if [[ $(ps aux | grep '$APP') ]]; then
+if [[ $(ps aux | grep "${APP}") ]]; then
   log "Service is running"
 elif [[ $(cat "${HOME}/lt_${APP}.stdout"| grep "${APP}") ]]; then
   log "Wrong domain. Restarting Service."

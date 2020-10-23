@@ -5,6 +5,8 @@ PORT=${2:-80}
 PID_PATH="${HOME}/pids"
 
 mkdir -p $PID_PATH; touch "${PID_PATH}/lt_${APP}.pid"
+touch "${HOME}/${APP}.stderr"
+touch "${HOME}/${APP}.stdout"
 log() {
     echo "[$(date)] $1"
 }
