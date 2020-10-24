@@ -11,7 +11,7 @@ log() {
 }
 
 log "Status check ${APP} on port ${PORT}"
-$(ps aux | awk "/[b]in\/lt .*${APP}/ {print $2}")
+ps aux | awk "/[b]in\/lt .*${APP}/ {print $2}"
 
 touch "${LT_STDOUT_FILE}"
 if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
