@@ -1,7 +1,6 @@
 #!/bin/bash
 
 APP=$1
-APP='pi-planta'
 PORT=${2:-80}
 
 SCRIPT_HOME="${HOME}/lt"
@@ -17,9 +16,6 @@ log() {
 }
 
 [ -s "${PID_FILE}" ] && log "Killing process" && kill $(cat "${PID_FILE}")
-rm -f $STDOUT_FILE
-rm -f $STDERR_FILE
-rm -f $PID_FILE
 sleep 3s
 
 log "Starting tunnel:"
