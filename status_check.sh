@@ -17,7 +17,7 @@ echo "$(cat $LT_STDOUT_FILE| grep $APP)"
 touch "${LT_STDOUT_FILE}"
 if [[ -s $PID_FILE ]]; then
 	log "${APP} is running"
-	if [[ -s $LT_STDOUT_FILE ]] then;
+	if [[ -s $LT_STDOUT_FILE ]]; then
 		log "${APP} has std out logs"
 		if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
 			log "but ${APP}, got wrong domain! Restarting."
