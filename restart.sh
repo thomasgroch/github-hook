@@ -15,7 +15,10 @@ log() {
     echo "[$(date)][${APP}] $1"
 }
 
-pgrep $APP && log "Killing process" && pkill $APP
+[ -s "${PID_FILE}" ] && log "Killing process" && kill $(cat "${PID_FILE}")
+rm -f $STDOUT_FILE
+rm -f $STDERR_FILE
+rm -f $PID_FILE
 sleep 3s
 
 log "Starting tunnel:"
