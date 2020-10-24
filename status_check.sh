@@ -11,16 +11,16 @@ PID_FILE="${PID_PATH}/${APP}.pid"
 log() {
     echo "[$(date)] $1"
 }
-
-log "Status check ${APP} on port ${PORT}"
+log 'checking domain'
+echo "$(cat $LT_STDOUT_FILE| grep $APP)"
 
 touch "${LT_STDOUT_FILE}"
 if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
-  log "Wrong domain. Restarting Service."
+  log "Wrong domain for ${APP}. Restarting Service."
   cd "${HOME}/${APP}/" && sh restart.sh $1 $2
 elif [[ -s $PID_FILE ]]	; then
-  log "Service is running"
+  log "Service ${APP} is running"
 else
-  log "Service is stopped. Starting"
+  log "Service ${APP} is stopped. Starting"
   cd "${HOME}/${APP}/" && sh restart.sh $1 $2
 fi
