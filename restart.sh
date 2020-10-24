@@ -12,11 +12,11 @@ log() {
 }
 
 log "Killing ${APP} process"
-[ -e "${PID_PATH}/${APP}.pid" ] && kill $(cat "${PID_PATH}/${APP}.pid")
+[ -e "${PID_PATH}/lt_${APP}.pid" ] && kill $(cat "${PID_PATH}/lt_${APP}.pid")
 sleep 3s
 
 log "Starting ${APP} tunnel on port ${PORT}"
 /usr/local/bin/lt --subdomain "${APP}" --port $PORT \
 	> "${HOME}/${APP}.stdout" \
 	2> "${HOME}/${APP}.stderr" \
-	& echo $! > "${PID_PATH}/${APP}.pid"
+	& echo $! > "${PID_PATH}/lt_${APP}.pid"
