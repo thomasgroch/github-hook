@@ -13,13 +13,12 @@ log() {
 }
 
 log "Status check ${APP} on port ${PORT}"
-ps aux | awk "/[b]in\/lt .*${APP}/ {print $2}"
 
 touch "${LT_STDOUT_FILE}"
 if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
   log "Wrong domain. Restarting Service."
   cd "${HOME}/${APP}/" && sh restart.sh $1 $2
-elif [[ -n "$(cat $PID_FILE)" ]]	; then
+elif [[ -s $PID_FILE ]]	; then
   log "Service is running"
 else
   log "Service is stopped. Starting"

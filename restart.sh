@@ -17,9 +17,16 @@ log() {
 
 log "Killing ${APP} process"
 [ -e "${PID_FILE}" ] && kill $(cat "${PID_FILE}")
+rm $STDOUT_FILE
+rm $STDERR_FILE
+rm $PID_FILE
 sleep 3s
 
-log "Starting ${APP} tunnel on port ${PORT}"
+log "Starting ${APP} tunnel:"
+log "PORT=${PORT}"
+log "Stdout ${STDOUT_FILE}"
+log "Stderr ${STDERR_FILE}"
+log "Pid ${PID_FILE}"
 /usr/local/bin/lt --subdomain "${APP}" --port $PORT \
 	> "${STDOUT_FILE}" \
 	2> "${STDERR_FILE}" \
