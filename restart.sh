@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APP=$1
+APP='pi-planta'
 PORT=${2:-80}
 
 SCRIPT_HOME="${HOME}/lt"
@@ -15,7 +16,7 @@ log() {
     echo "[$(date)][${APP}] $1"
 }
 
-log "Killing process" && kill $(cat "${PID_FILE}")
+[ -s "${PID_FILE}" ] && log "Killing process" && kill $(cat "${PID_FILE}")
 rm $STDOUT_FILE
 rm $STDERR_FILE
 rm $PID_FILE
