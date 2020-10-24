@@ -11,20 +11,17 @@ PID_FILE="${PID_PATH}/${APP}.pid"
 log() {
     echo "[$(date)][${APP}] $1"
 }
-log 'checking domain'
-echo "$(cat $LT_STDOUT_FILE| grep $APP)"
 
 touch "${LT_STDOUT_FILE}"
-if [[ -s $PID_FILE ]]; then
-	log "${APP} is running"
-	if [[ -s $LT_STDOUT_FILE ]]; then
-		log "has std out logs"
-		if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
-			log "but, got wrong domain! Restarting."
-		else
-			log "all good."
-		fi
-	fi
+if [[ -s $PID_FILE && -s $LT_STDOUT_FILE ]]; then
+	log "${APP} is running and has std out logs"
+	log 'checking domain'
+	echo "$(cat $LT_STDOUT_FILE| grep $APP)"
+	# if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
+	# 	log "but, got wrong domain! Restarting."
+	# else
+	# 	log "all good."
+	# fi
 else
   log "${APP} is not running. Starting"
   cd "${HOME}/${APP}/" && sh restart.sh $1 $2
