@@ -11,6 +11,7 @@ log() {
 }
 
 log "Status check ${APP} on port ${PORT}"
+$(ps aux | awk "/[b]in\/lt .*${APP}/ {print $2}")
 
 touch "${LT_STDOUT_FILE}"
 if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
@@ -18,7 +19,6 @@ if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
   cd "${HOME}/${APP}/" && sh restart.sh $1 $2
 elif [[ $(ps aux | awk "/[b]in\/lt .*${APP}/ {print $2}") ]]; then
   log "Service is running"
-  log "$(ps aux | awk "/[b]in\/lt .*${APP}/ {print $2}")"
 else
   log "Service is stopped. Starting"
   cd "${HOME}/${APP}/" && sh restart.sh $1 $2
