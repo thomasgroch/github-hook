@@ -15,12 +15,26 @@ log 'checking domain'
 echo "$(cat $LT_STDOUT_FILE| grep $APP)"
 
 touch "${LT_STDOUT_FILE}"
-if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
-  log "Wrong domain for ${APP}. Restarting Service."
-  cd "${HOME}/${APP}/" && sh restart.sh $1 $2
-elif [[ -s $PID_FILE ]]	; then
-  log "Service ${APP} is running"
+if [[ -s $PID_FILE ]]; then
+	log "${APP} is running"
+	if [[ -s $LT_STDOUT_FILE ]] then;
+		log "${APP} has std out logs"
+		if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
+			log "but ${APP}, got wrong domain! Restarting."
+		fi
+	fi
 else
-  log "Service ${APP} is stopped. Starting"
+  log "${APP} is not running. Starting"
   cd "${HOME}/${APP}/" && sh restart.sh $1 $2
 fi
+
+
+
+
+
+
+
+
+
+
+
