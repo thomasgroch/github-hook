@@ -19,8 +19,9 @@ if [[ -s $PID_FILE && -s $LT_STDOUT_FILE ]]; then
 	echo "$(cat $LT_STDOUT_FILE | grep $APP)"
 	if [[ ! -s $LT_STDOUT_FILE ]]; then
 		log "Ops, ${LT_STDOUT_FILE} is empty"
-	elif [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
+	elif [[ ! -s $LT_STDOUT_FILE && ! $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
 		log "but, got wrong domain! Restarting."
+		cd "${HOME}/${APP}/" && sh restart.sh $1 $2
 	else
 		log "all good."
 	fi

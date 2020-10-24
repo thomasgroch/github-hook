@@ -15,17 +15,11 @@ log() {
     echo "[$(date)][${APP}] $1"
 }
 
-[ -s "${PID_FILE}" ] && log "Killing process" && kill $(cat "${PID_FILE}")
-rm -f $STDOUT_FILE
-rm -f $STDERR_FILE
-rm -f $PID_FILE
+[ -s "${PID_FILE}" ] && log "Killing process" && kill -9 $(cat "${PID_FILE}")
 sleep 3s
 
-log "Starting tunnel:"
-log "PORT=${PORT}"
-log "Stdout ${STDOUT_FILE}"
-log "Stderr ${STDERR_FILE}"
-log "Pid ${PID_FILE}"
+log "Starting ${APP} tunnel on port ${PORT} [pid=${PID_FILE}]"
+
 /usr/local/bin/lt --subdomain "${APP}" --port $PORT \
 	> "${STDOUT_FILE}" \
 	2> "${STDERR_FILE}" \
