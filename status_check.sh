@@ -13,7 +13,7 @@ touch "${HOME}/lt_${APP}.stdout"
 if [[ $(cat "${HOME}/lt_${APP}.stdout"| grep "${APP}") ]]; then
   log "Wrong domain. Restarting Service."
   cd "${HOME}/${APP}/" && sh restart.sh $1 $2
-elif [[ $(ps aux | grep "${APP}") ]]; then
+elif [[ $(ps aux | awk "/[b]in\/lt .*${APP}/ {print $2}" ]]; then
   log "Service is running"
 else
   log "Service is stopped. Starting"
