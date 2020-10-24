@@ -16,7 +16,7 @@ touch "${LT_STDOUT_FILE}"
 if [[ -s $PID_FILE && -s $LT_STDOUT_FILE ]]; then
 	log "has std out logs"
 	log 'now checking domain'
-	echo "$(cat $LT_STDOUT_FILE | grep $APP)"
+	echo "$(cat ${LT_STDOUT_FILE} | grep $APP)"
 	if [[ ! -s $LT_STDOUT_FILE ]]; then
 		log "Ops, ${LT_STDOUT_FILE} is empty"
 	elif [[ ! -s $LT_STDOUT_FILE && ! $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
