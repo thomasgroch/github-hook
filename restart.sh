@@ -12,16 +12,16 @@ PID_FILE="${PID_PATH}/${APP}.pid"
 mkdir -p $PID_PATH; touch "${STDERR_FILE}" "${STDOUT_FILE}" "${PID_FILE}"
 
 log() {
-    echo "[$(date)] $1"
+    echo "[$(date)][${APP}] $1"
 }
 
-log "Killing ${APP} process" && kill $(cat "${PID_FILE}")
+log "Killing process" && kill $(cat "${PID_FILE}")
 rm $STDOUT_FILE
 rm $STDERR_FILE
 rm $PID_FILE
 sleep 3s
 
-log "Starting ${APP} tunnel:"
+log "Starting tunnel:"
 log "PORT=${PORT}"
 log "Stdout ${STDOUT_FILE}"
 log "Stderr ${STDERR_FILE}"

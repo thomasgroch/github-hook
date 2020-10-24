@@ -9,7 +9,7 @@ PID_PATH="${SCRIPT_HOME}/pids"
 PID_FILE="${PID_PATH}/${APP}.pid"
 
 log() {
-    echo "[$(date)] $1"
+    echo "[$(date)][${APP}] $1"
 }
 log 'checking domain'
 echo "$(cat $LT_STDOUT_FILE| grep $APP)"
@@ -18,9 +18,11 @@ touch "${LT_STDOUT_FILE}"
 if [[ -s $PID_FILE ]]; then
 	log "${APP} is running"
 	if [[ -s $LT_STDOUT_FILE ]]; then
-		log "${APP} has std out logs"
+		log "has std out logs"
 		if [[ $(cat "${LT_STDOUT_FILE}"| grep "${APP}") ]]; then
-			log "but ${APP}, got wrong domain! Restarting."
+			log "but, got wrong domain! Restarting."
+		else
+			log "all good."
 		fi
 	fi
 else
