@@ -15,8 +15,7 @@ log() {
     echo "[$(date)] $1"
 }
 
-log "Killing ${APP} process"
-[ -e "${PID_FILE}" ] && kill $(cat "${PID_FILE}")
+log "Killing ${APP} process" && kill $(cat "${PID_FILE}")
 rm $STDOUT_FILE
 rm $STDERR_FILE
 rm $PID_FILE
