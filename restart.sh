@@ -15,7 +15,9 @@ log() {
     echo "[$(date)][${APP}] $1"
 }
 
-[ -s "${PID_FILE}" ] && log "Killing process" && kill -9 $(cat "${PID_FILE}")
+PID_TO_KILL=$(cat "${PID_FILE}")
+log "PID_TO_KILL => ${PID_TO_KILL}"
+[ -s "${PID_FILE}" ] && log "Killing process" && kill -9 $PID_TO_KILL
 sleep 3s
 
 log "Starting ${APP} tunnel on port ${PORT} [pid=${PID_FILE}]"
