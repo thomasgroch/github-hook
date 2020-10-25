@@ -12,7 +12,7 @@ PID_FILE="${PID_PATH}/${APP}.pid"
 mkdir -p $PID_PATH; touch "${STDERR_FILE}" "${STDOUT_FILE}" "${PID_FILE}"
 
 log() {
-    echo "[$(date)][${APP}] $1"
+    echo "[${APP}] $1"
 }
 
 # PID_TO_KILL=$(cat "${PID_FILE}")

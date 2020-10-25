@@ -9,7 +9,7 @@ PID_PATH="${SCRIPT_HOME}/pids"
 PID_FILE="${PID_PATH}/${APP}.pid"
 
 log() {
-    echo "[$(date)][${APP}] $1"
+    echo "[${APP}] $1"
 }
 
 touch "${LT_STDOUT_FILE}"
